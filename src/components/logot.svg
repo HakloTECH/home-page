@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!-- Generator: Gravit.io -->
+<svg xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="-94 -55 333 121" width="333pt" height="121pt">
+  <defs>
+    <clipPath id="_clipPath_bFxRF96Q36Et7kFEm0TvKQZVxeyto9Kv">
+      <rect x="-94" y="-55" width="333" height="121"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#_clipPath_bFxRF96Q36Et7kFEm0TvKQZVxeyto9Kv)">
+    <rect x="-94" y="-55" width="333" height="121" style="fill:rgb(42,98,57)"/>
+    <mask id="_mask_doL0nkbATnkm82kTjB4AC5q888ZzFSJ0" x="-200%" y="-200%" width="400%" height="400%">
+      <rect x="-200%" y="-200%" width="400%" height="400%" style="fill:white;"/>
+      <line x1="-89" y1="46" x2="-89" y2="-50" fill="black" stroke="none"/>
+    </mask>
+    <line x1="-89" y1="46" x2="-89" y2="-50" mask="url(#_mask_doL0nkbATnkm82kTjB4AC5q888ZzFSJ0)" vector-effect="non-scaling-stroke" stroke-width="10" stroke-dasharray="1,1" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="4"/>
+    <mask id="_mask_YIKASo1bRAiyM52JLZMBoQwqzgAtcFsy" x="-200%" y="-200%" width="400%" height="400%">
+      <rect x="-200%" y="-200%" width="400%" height="400%" style="fill:white;"/>
+      <line x1="-29" y1="-5" x2="-89" y2="-5" fill="black" stroke="none"/>
+    </mask>
+    <line x1="-29" y1="-5" x2="-89" y2="-5" mask="url(#_mask_YIKASo1bRAiyM52JLZMBoQwqzgAtcFsy)" vector-effect="non-scaling-stroke" stroke-width="10" stroke-dasharray="1,1" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="4"/>
+    <mask id="_mask_6iIthkLIPB35skKR5G8kPQYMB3SycS4I" x="-200%" y="-200%" width="400%" height="400%">
+      <rect x="-200%" y="-200%" width="400%" height="400%" style="fill:white;"/>
+      <line x1="-29" y1="-50" x2="-29" y2="46" fill="black" stroke="none"/>
+    </mask>
+    <line x1="-29" y1="-50" x2="-29" y2="46" mask="url(#_mask_6iIthkLIPB35skKR5G8kPQYMB3SycS4I)" vector-effect="non-scaling-stroke" stroke-width="10" stroke-dasharray="1,1" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="4"/>
+    <path d=" M 45 19 C 45 4.098 32.902 -8 18 -8 C 3.098 -8 -9 4.098 -9 19 C -9 33.902 3.098 46 18 46 C 32.902 46 45 33.902 45 19 Z " fill="none" vector-effect="non-scaling-stroke" stroke-width="10" stroke-dasharray="1,1" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="4"/>
+    <mask id="_mask_o1hFWSQR0HtItc1fcpxpA7GzuvvgH7Ph" x="-200%" y="-200%" width="400%" height="400%">
+      <rect x="-200%" y="-200%" width="400%" height="400%" style="fill:white;"/>
+      <line x1="46" y1="46" x2="46" y2="-10" fill="black" stroke="none"/>
+    </mask>
+    <line x1="46" y1="46" x2="46" y2="-10" mask="url(#_mask_o1hFWSQR0HtItc1fcpxpA7GzuvvgH7Ph)" vector-effect="non-scaling-stroke" stroke-width="10" stroke-dasharray="1,1" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="4"/>
+    <mask id="_mask_xDkOMjTgNtsenqiWPfJt2wF9n76rgCkT" x="-200%" y="-200%" width="400%" height="400%">
+      <rect x="-200%" y="-200%" width="400%" height="400%" style="fill:white;"/>
+      <line x1="71" y1="46" x2="71" y2="-50" fill="black" stroke="none"/>
+    </mask>
+    <line x1="71" y1="46" x2="71" y2="-50" mask="url(#_mask_xDkOMjTgNtsenqiWPfJt2wF9n76rgCkT)" vector-effect="non-scaling-stroke" stroke-width="10" stroke-dasharray="1,1" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="4"/>
+    <mask id="_mask_OGSJ4vc3P0hvKR6RBAHBNrKcaVC7gmjS" x="-200%" y="-200%" width="400%" height="400%">
+      <rect x="-200%" y="-200%" width="400%" height="400%" style="fill:white;"/>
+      <line x1="71" y1="20" x2="116" y2="-25" fill="black" stroke="none"/>
+    </mask>
+    <line x1="71" y1="20" x2="116" y2="-25" mask="url(#_mask_OGSJ4vc3P0hvKR6RBAHBNrKcaVC7gmjS)" vector-effect="non-scaling-stroke" stroke-width="10" stroke-dasharray="1,1" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="4"/>
+    <mask id="_mask_80wPtX6AeeNmum4tbHU3WSaz2xQGdjdw" x="-200%" y="-200%" width="400%" height="400%">
+      <rect x="-200%" y="-200%" width="400%" height="400%" style="fill:white;"/>
+      <line x1="116" y1="46" x2="86" y2="5" fill="black" stroke="none"/>
+    </mask>
+    <line x1="116" y1="46" x2="86" y2="5" mask="url(#_mask_80wPtX6AeeNmum4tbHU3WSaz2xQGdjdw)" vector-effect="non-scaling-stroke" stroke-width="10" stroke-dasharray="1,1" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="4"/>
+    <mask id="_mask_qt1KIXQ9fPrfseooWQ80ZuAlzjEupHTn" x="-200%" y="-200%" width="400%" height="400%">
+      <rect x="-200%" y="-200%" width="400%" height="400%" style="fill:white;"/>
+      <line x1="141" y1="46" x2="141" y2="-50" fill="black" stroke="none"/>
+    </mask>
+    <line x1="141" y1="46" x2="141" y2="-50" mask="url(#_mask_qt1KIXQ9fPrfseooWQ80ZuAlzjEupHTn)" vector-effect="non-scaling-stroke" stroke-width="10" stroke-dasharray="1,1" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="4"/>
+    <path d=" M 190 46 C 173.994 46 161 33.006 161 17 C 161 0.994 173.994 -12 190 -12 C 206.006 -12 219 0.994 219 17 C 219 33.006 206.006 46 190 46 Z " fill="none" vector-effect="non-scaling-stroke" stroke-width="10" stroke-dasharray="1,1" stroke="rgb(255,255,255)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="4"/>
+  </g>
+</svg>

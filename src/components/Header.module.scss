@@ -1,0 +1,42 @@
+:root {
+  --header-height: 60px;
+}
+.header {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 80vh;
+  background-color: rgba(0,0,0,0);
+  z-index: 200;
+  transition: background-color .2s ease-in;
+  &.blackback {
+    background-color: rgba(0, 0, 0, 0.6);
+    transition: background-color .3s ease-in;
+    .bottomLines {
+      opacity: 0;
+    }
+    &:hover {
+      background-color: black;
+      transition: background-color .3s ease-in;
+    }
+  }
+  .descTextField{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    clip-path: polygon(0 var(--header-logo-bottom-y), 100vw var(--header-logo-bottom-y), 100vw calc(var(--header-logo-bottom-y) + 6em), 0 calc(var(--header-logo-bottom-y) + 6em));
+    .descText {
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 80vw;
+      margin: auto;
+      font-family: 'Ubuntu', Arial, Helvetica, sans-serif;
+      font-size: min(max(1em, 3vw), 1.6em);
+      text-align: center;
+      color: white;
+    }
+  }
+}

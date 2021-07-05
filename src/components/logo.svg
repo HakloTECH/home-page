@@ -1,0 +1,26 @@
+<svg>
+  <linearGradient id='logo_grad' gradientUnits='userSpaceOnUse' x1='-20px' x2='20px' y1='-57.73502691896257px' y2='57.73502691896257px'
+  >
+<stop offset="0%" stop-color='#01fdff' ></stop>
+  <stop offset="85%" stop-color='#01fdff'></stop>
+</linearGradient>
+<g stroke='transparent'>
+  <g>
+    <path d='M -20 -57.73502691896257 l -10 17.32050807568877 l 10 17.32050807568877 l 20 0 z m 40 34.64101615137754 l 20 0 l -20 -34.64101615137754 l -20 0 z M 59.999999999999986 11.547005383792495 l -10.000000000000002 -17.32050807568877 l -20 5.329070518200751e-15 l -9.999999999999996 17.320508075688775 z m -49.99999999999999 17.320508075688785 l -9.999999999999996 17.320508075688775 l 40 -1.0658141036401503e-14 l 9.999999999999996 -17.320508075688775 z M -39.99999999999998 46.18802153517008 l 20 -7.105427357601002e-15 l 9.999999999999993 -17.320508075688778 l -10.000000000000009 -17.32050807568877 z m 9.999999999999975 -51.96152422706633 l -10.000000000000009 -17.32050807568877 l -19.999999999999986 34.641016151377556 l 10.000000000000009 17.32050807568877 z' >
+    </path>
+    <path d='M 0 0 l 0 0 l 0 0 z'></path>
+  </g>
+  <g stroke="white" stroke-linecap="round" stroke-width="5" stroke-dashoffset="1" fill="none">
+    <line stroke-dasharray="1 1" pathLength="1" x1="-110" y1="46" x2="-110" y2="-50"></line>
+    <line stroke-dasharray="1 1" pathLength="1" y1="-5" x2="-110" y2="-5" x1="-50"></line>
+    <line stroke-dasharray="1 1" pathLength="1" x1="-50" y1="-50" x2="-50" y2="46"></line>
+    <path stroke-dasharray="1 1" pathLength="1" d="M 28 19 C 28 4.098 15.902 -8 1 -8 C -13.902 -8 -26 4.098 -26 19 C -26 33.902 -13.902 46 1 46 C 15.902 46 28 33.902 28 19 Z"></path>
+    <line stroke-dasharray="1 1" pathLength="1" x1="29" y1="46" x2="29" y2="-10"></line>
+    <line stroke-dasharray="1 1" pathLength="1" x1="55" y1="46" x2="55" y2="-50"></line>
+    <line stroke-dasharray="1 1" pathLength="1" x1="55" y1="20" x2="100" y2="-25"></line>
+    <line stroke-dasharray="1 1" pathLength="1" x1="100" y1="46" x2="70" y2="5"></line>
+    <line stroke-dasharray="1 1" pathLength="1" x1="127" y1="46" x2="127" y2="-50"></line>
+    <path stroke-dasharray="1 1" pathLength="1" d="M 182 46 C 165.994 46 153 33.006 153 17 C 153 0.994 165.994 -12 182 -12 C 198.006 -12 211 0.994 211 17 C 211 33.006 198.006 46 182 46 Z"></path>
+  </g>
+</g>
+</svg>

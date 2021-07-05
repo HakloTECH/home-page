@@ -1,0 +1,15 @@
+$header-height: 60px;
+
+body {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(#000000, #000431);
+  background-attachment: fixed;
+}
+.disable-scroll {
+  overflow: hidden;
+}
