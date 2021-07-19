@@ -1,5 +1,5 @@
 import { ElemType } from 'bluejsx'
-import { initText } from './catchPhraseAnim'
+import { initText } from '../catchPhraseAnim'
 import Splash, { DURATION_ANIMATE } from './Splash'
 import { header as CLASS_HEADER, blackback as CLASS_BLACKBACK, descText as CLASS_DESCTEXT, descTextField as CLASS_DESCTEXT_FIELD } from './Header.module.scss'
 const { body } = document
