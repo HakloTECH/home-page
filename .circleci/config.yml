@@ -35,8 +35,8 @@ jobs:
     executor: node/default
     steps:
       - run:
-        name: show items in current dir
-        command: ls
+          name: show items in current dir
+          command: ls
       - checkout
       - attach_workspace:
           at: .
