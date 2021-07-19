@@ -34,12 +34,13 @@ jobs:
   deploy:
     executor: node/default
     steps:
-      - run:
-          name: show items in current dir
-          command: ls
+      
       - checkout
       - attach_workspace:
           at: .
+      - run:
+          name: show items in current dir
+          command: ls
       - run:
           name: Deploy
           command: npm run deploy
