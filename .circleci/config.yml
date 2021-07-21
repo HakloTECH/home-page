@@ -28,12 +28,13 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - run:
-          name: create dist folder
-          command: mkdir dist
       - run: 
           name: Build
           command: npm run build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
   deploy:
     executor: node/default
     steps:
