@@ -43,7 +43,9 @@ jobs:
           at: .
       - run:
           name: show items in current dir
-          command: ls
+          command: 
+            git config --global user.email "ichigomomiji436@gmail.com"
+            git config --global user.name "Momijiichigo"
       - run:
           name: Deploy
           command: npm run deploy
