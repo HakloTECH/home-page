@@ -1,12 +1,16 @@
 import { ElemType } from 'bluejsx'
 import anime from 'animejs';
-import { logo_anime as CLASS_LOGO} from './Splash.module.scss'
-import { bottomLines as CLASS_BOTTOM_LINE } from './Header.module.scss'
+import { logo_anime as CLASS_LOGO } from './index.module.scss'
+import { bottomLines as CLASS_BOTTOM_LINE } from '../Header/index.module.scss'
 
 const { min, max } = Math
 const rootStyle = document.documentElement.style
 
-const DURATION_GATHER = 1300, DURATION_ROLL = 2300, DURATION_ANIMATE = DURATION_GATHER + DURATION_ROLL,
+const DURATION_GATHER = 1300,
+  DURATION_PAUSE = 300,
+  DURATION_ROLL = 2300,
+  DURATION_BEFORE_ROLL = DURATION_GATHER + DURATION_PAUSE,
+  DURATION_ANIMATE = DURATION_GATHER + DURATION_PAUSE + DURATION_ROLL,
   LOGO_HALF_WIDTH = 170, LOGO_HEIGHT = 180//, BOTTOM_LINE_RATIO = 
 const lineAnimKeyFrame = {
   strokeDashoffset: [
@@ -63,7 +67,7 @@ export default () => {
         <rect x="-80%" y="65" width="160%" height="300" />
       </clipPath>
       <g ref={[refs, 'logoG']} >
-        
+
         <g ref={[refs, 'logoShape']} stroke='transparent' fill="url(#logo_grad)">
           <path ref={[refs, 'pathAround']} d='M 0 0 l 0 0 l 0 0 l 0 0 z m 0 0 l 0 0 l 0 0 l 0 0 z M 0 0 l 0 0 l 0 0 l 0 0 z m 0 0 l 0 0 l 0 0 l 0 0 z M 0 0 l 0 0 l 0 0 l 0 0 z m 0 0 l 0 0 l 0 0 l 0 0 z M 0 0 l 0 0 l 0 0' >
           </path>
@@ -99,8 +103,8 @@ export default () => {
       bhh = bh * .5
     const scale = min(1, bw / LOGO_HALF_WIDTH * .3, bh / LOGO_HEIGHT)
     bigger = max(bw, bh) / scale * 1.3
-    rootStyle.setProperty('--header-logo-bottom-y',  `${bhh + 72 * scale}px`)
-    
+    rootStyle.setProperty('--header-logo-bottom-y', `${bhh + 72 * scale}px`)
+
     const bottomLineHalfLength = max(bwh / scale, LOGO_HALF_WIDTH)
     bottomLine1.setAttribute('x2', `-${bottomLineHalfLength}`)
     bottomLine2.setAttribute('x2', `${bottomLineHalfLength}`)
@@ -189,7 +193,7 @@ export default () => {
         ]
       }, {
         duration: DURATION_ROLL,
-        delay: DURATION_GATHER,
+        delay: DURATION_BEFORE_ROLL,
         ...lineAnimOption
       }),
       titleChars.animate({
@@ -198,7 +202,7 @@ export default () => {
           'translateX(0)',
         ]
       }, {
-        delay: DURATION_GATHER,
+        delay: DURATION_BEFORE_ROLL,
         duration: DURATION_ROLL,
         ...lineAnimOption
       }),
@@ -219,52 +223,52 @@ export default () => {
 
       line10.animate(lineAnimKeyFrame, {
         duration: DURATION_ROLL * 0.13,
-        delay: DURATION_GATHER + DURATION_ROLL * 0.27,
+        delay: DURATION_BEFORE_ROLL + DURATION_ROLL * 0.27,
         ...lineAnimOption
       }),
       line9.animate(lineAnimKeyFrame, {
         duration: DURATION_ROLL * 0.13,
-        delay: DURATION_GATHER + DURATION_ROLL * 0.4,
+        delay: DURATION_BEFORE_ROLL + DURATION_ROLL * 0.4,
         ...lineAnimOption
       }),
       line8.animate(lineAnimKeyFrame, {
         duration: DURATION_ROLL * 0.1,
-        delay: DURATION_GATHER + DURATION_ROLL * 0.42,
+        delay: DURATION_BEFORE_ROLL + DURATION_ROLL * 0.42,
         ...lineAnimOption
       }),
       line7.animate(lineAnimKeyFrame, {
         duration: DURATION_ROLL * 0.2,
-        delay: DURATION_GATHER + DURATION_ROLL * 0.52,
+        delay: DURATION_BEFORE_ROLL + DURATION_ROLL * 0.52,
         ...lineAnimOption
       }),
       line6.animate(lineAnimKeyFrame, {
         duration: DURATION_ROLL * 0.08,
-        delay: DURATION_GATHER + DURATION_ROLL * 0.47,
+        delay: DURATION_BEFORE_ROLL + DURATION_ROLL * 0.47,
         ...lineAnimOption
       }),
       line5.animate(lineAnimKeyFrame, {
         duration: DURATION_ROLL * 0.067,
-        delay: DURATION_GATHER + DURATION_ROLL * 0.53,
+        delay: DURATION_BEFORE_ROLL + DURATION_ROLL * 0.53,
         ...lineAnimOption
       }),
       line4.animate(lineAnimKeyFrame, {
         duration: DURATION_ROLL * 0.12,
-        delay: DURATION_GATHER + DURATION_ROLL * 0.6,
+        delay: DURATION_BEFORE_ROLL + DURATION_ROLL * 0.6,
         ...lineAnimOption
       }),
       line3.animate(lineAnimKeyFrame, {
         duration: DURATION_ROLL * 0.17,
-        delay: DURATION_GATHER + DURATION_ROLL * 0.67,
+        delay: DURATION_BEFORE_ROLL + DURATION_ROLL * 0.67,
         ...lineAnimOption
       }),
       line2.animate(lineAnimKeyFrame, {
         duration: DURATION_ROLL * 0.11,
-        delay: DURATION_GATHER + DURATION_ROLL * 0.76,
+        delay: DURATION_BEFORE_ROLL + DURATION_ROLL * 0.76,
         ...lineAnimOption
       }),
       line1.animate(lineAnimKeyFrame, {
         duration: DURATION_ROLL * 0.1,
-        delay: DURATION_GATHER + DURATION_ROLL * 0.83,
+        delay: DURATION_BEFORE_ROLL + DURATION_ROLL * 0.83,
         ...lineAnimOption
       }),
     ]

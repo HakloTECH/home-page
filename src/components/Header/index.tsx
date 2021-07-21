@@ -1,7 +1,7 @@
 import { ElemType } from 'bluejsx'
-import { initText } from '../catchPhraseAnim'
-import Splash, { DURATION_ANIMATE } from './Splash'
-import { header as CLASS_HEADER, blackback as CLASS_BLACKBACK, descText as CLASS_DESCTEXT, descTextField as CLASS_DESCTEXT_FIELD } from './Header.module.scss'
+import { initText } from '../../catchPhraseAnim'
+import Splash, { DURATION_ANIMATE } from '../Splash'
+import { header as CLASS_HEADER, blackback as CLASS_BLACKBACK, descText as CLASS_DESCTEXT, descTextField as CLASS_DESCTEXT_FIELD } from './index.module.scss'
 const { body } = document
 const shrinkAnimOptions = {
   duration: 1,
@@ -32,7 +32,7 @@ export default () => {
   addEventListener('DOMContentLoaded', () => {
     let blackback = false
     const moveDescTextPos = descText.animate({
-      top: ['calc(var(--header-logo-bottom-y) + 15px)', '0px'],
+      top: ['calc(var(--header-logo-bottom-y) + 15px)', '-20px'],
     }, shrinkAnimOptions)
     
     moveDescTextPos.pause()
