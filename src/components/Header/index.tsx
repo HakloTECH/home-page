@@ -29,7 +29,7 @@ export default () => {
   shrink.pause()
   
 
-  addEventListener('DOMContentLoaded', () => {
+  addEventListener('load', () => {
     let blackback = false
     const moveDescTextPos = descText.animate({
       top: ['calc(var(--header-logo-bottom-y) + 15px)', '-20px'],

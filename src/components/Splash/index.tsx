@@ -119,7 +119,7 @@ export default () => {
 
 
 
-  document.addEventListener('DOMContentLoaded', () => {
+  addEventListener('load', () => {
     onResize()
     anime({
       targets: pathAround,
