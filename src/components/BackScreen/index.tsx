@@ -47,7 +47,7 @@ const canvasInfos = new CanvasInfoList()
 
 const backScreen = <div class={CLASS_BACK_SCREEN}>
   {canvasInfos.elements}
-  <div ref={[refs, 'shutter']} class={CLASS_SHUTTER}></div>
+  <div ref={[refs, 'shutter']} class={`${CLASS_SHUTTER} ${CLASS_SHUT}`}></div>
 </div> as ElemType<'div'>
 const { shutter } = refs
 
@@ -72,10 +72,10 @@ let loaded = false
 const waitTillLoad = () => new Promise(resolve=>{
   if(loaded) resolve(0)
   else {
-    addEventListener('load',()=>{
+    addEventListener('load',()=>setTimeout(()=>{
       loaded = true
       resolve(0)
-    })
+    }, 300))
   }
 })
 let currentDisposer: () => void | Promise<void>

@@ -6,15 +6,18 @@ type FuncCompParam = {
   children?: [Blue.JSX.Element]
   [key: string]: any
 }
-export default ({children, screenSetter}: FuncCompParam & { screenSetter?: backScreenSetter}) => {
+export default ({ children, screenSetter }: FuncCompParam & { screenSetter?: backScreenSetter }) => {
   const refs: {
 
   } = {}
   const self = <section class={CLASS_SECTION}>
     {children}
   </section>
-  //document.addEventListener('scroll', ()=>{
+  if (screenSetter) {
     setBackScreen(screenSetter)
+  }
+  //document.addEventListener('scroll', ()=>{
+
   //})
   return self
 }

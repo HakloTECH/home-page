@@ -19,8 +19,8 @@
     height: 100vh;
     background-color: transparent;
     transition: background-color 0.5s ease-in;
-    z-index: -3;
-    .shut {
+    z-index: 0;
+    &.shut {
       background-color: black;
     }
   }
