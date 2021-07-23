@@ -170,10 +170,10 @@ export default () => {
     anime({
       targets: shadowFilter,
       stdDeviation: [
-        {value: '0'},
-        {value: '8'},
-        {value: '5'},
-        {value: '0'}
+        { value: '0' },
+        { value: '8' },
+        { value: '5' },
+        { value: '0' }
       ],
       easing: 'linear',
       delay: DURATION_ANIMATE + 100,
