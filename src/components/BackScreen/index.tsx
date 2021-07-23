@@ -72,7 +72,7 @@ let loaded = false
 const waitTillLoad = () => new Promise(resolve=>{
   if(loaded) resolve(0)
   else {
-    document.addEventListener('DOMContentLoaded',()=>{
+    addEventListener('load',()=>{
       loaded = true
       resolve(0)
     })
