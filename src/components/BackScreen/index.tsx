@@ -68,9 +68,20 @@ export type backScreenSetter = {
   dispose: () => void | Promise<void>
 }
 
+let loaded = false
+const waitTillLoad = () => new Promise(resolve=>{
+  if(loaded) resolve(0)
+  else {
+    document.addEventListener('DOMContentLoaded',()=>{
+      loaded = true
+      resolve(0)
+    })
+  }
+})
 let currentDisposer: () => void | Promise<void>
 
 export const setBackScreen = async ({ ctxName, init, dispose }: backScreenSetter) => {
+  await waitTillLoad()
   shutter.classList.add(CLASS_SHUT)
   await currentDisposer?.()
   await init(canvasInfos.useScreen(ctxName))
