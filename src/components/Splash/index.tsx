@@ -6,7 +6,7 @@ import { bottomLines as CLASS_BOTTOM_LINE } from '../Header/index.module.scss'
 const { min, max } = Math
 const rootStyle = document.documentElement.style
 
-const DURATION_GATHER = 1300,
+const DURATION_GATHER = 1500,
   DURATION_PAUSE = 170,
   DURATION_ROLL = 2300,
   DURATION_BEFORE_ROLL = DURATION_GATHER + DURATION_PAUSE,
