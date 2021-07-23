@@ -1,16 +1,15 @@
 import anime from 'animejs';
 import type { backScreenSetter } from './components/BackScreen'
 
-
+const { PI, random } = Math
 let canvas: HTMLCanvasElement, animFrameId: number
 const particleList = []
-const init = (canvas_p: HTMLCanvasElement)=> {
-  canvas = canvas_p
-  const ctx = canvas.getContext('2d');
-  let backGradVectorYPos = {
+const init = (ctx: CanvasRenderingContext2D) => {
+  canvas = ctx.canvas
+  const backGradVectorYPos = {
     vStart: 0,
     vEnd: canvas.height * 3,
-  };
+  }
   const drawMain = () => {
     ctx.beginPath();
     const backgroundGradient = ctx.createLinearGradient(0, backGradVectorYPos.vStart, canvas.width, backGradVectorYPos.vEnd);
@@ -31,13 +30,13 @@ const init = (canvas_p: HTMLCanvasElement)=> {
     xVel: number;
     yVel: number;
     constructor() {
-      this.x = Math.random() * canvas.width;
-      this.y = Math.random() * canvas.height;
-      this.radius = Math.random() * maxParticleRad + 1;
+      this.x = random() * canvas.width;
+      this.y = random() * canvas.height;
+      this.radius = random() * maxParticleRad + 1;
       this.color = `rgba(255, 255, 255, ${(1 - this.radius / maxParticleRad) ** 1.6})`;
       const v = this.radius * 0.4;
-      this.xVel = v * Math.random() * 0.5;
-      this.yVel = v * Math.random() * 0.5 + 0.5;
+      this.xVel = v * random() * 0.5;
+      this.yVel = v * random() * 0.5 + 0.5;
     }
 
     draw() {
@@ -49,7 +48,7 @@ const init = (canvas_p: HTMLCanvasElement)=> {
       //ctx.filter = `blur(${this.radius*0.3}px)`
       ctx.fillStyle = this.color;
       ctx.beginPath();
-      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.arc(this.x, this.y, this.radius, 0, PI * 2);
       ctx.fill();
       ctx.filter = 'none';
       ctx.closePath();
@@ -60,34 +59,35 @@ const init = (canvas_p: HTMLCanvasElement)=> {
   const animateAllParticles = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawMain();
-    for(let i=particleList.length;i--;)particleList[i].draw()
+    for (let i = particleList.length; i--;)particleList[i].draw()
 
     animFrameId = requestAnimationFrame(animateAllParticles);
   }
   const amountParticles = canvas.width * canvas.height * 0.000072
   //console.log(amountParticles);
-  for (let i = 0; i < amountParticles; i++) {
+  for (let i = amountParticles; i>0; i--) {
     particleList.push(new BackAnimatingParticle());
   }
   //const start = () => {
-    animFrameId = requestAnimationFrame(animateAllParticles);
-    anime({
-      targets: backGradVectorYPos,
-      duration: 6000,
-      //round: 1,
-      vStart: [0, -canvas.height * 2],
-      vEnd: [canvas.height * 3, canvas.height],
-      easing: 'easeInOutCubic',
-      //delay: 1000
-    })
+  animFrameId = requestAnimationFrame(animateAllParticles);
+  anime({
+    targets: backGradVectorYPos,
+    duration: 6000,
+    //round: 1,
+    vStart: [0, -canvas.height * 2],
+    vEnd: [canvas.height * 3, canvas.height],
+    easing: 'easeInOutCubic',
+    //delay: 1000
+  })
   //}
   //setTimeout(()=>start(),2500);
 }
-const dispose = ()=>{
+const dispose = () => {
   cancelAnimationFrame(animFrameId)
   particleList.length = 0
 }
 export default {
+  ctxName: '2d',
   init,
   dispose
 } as backScreenSetter

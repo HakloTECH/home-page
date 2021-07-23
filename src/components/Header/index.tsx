@@ -59,19 +59,20 @@ export default () => {
       if (document.hidden) return 0
       document.removeEventListener('visibilitychange', onVisibilityChange)
       
-      if (body.getBoundingClientRect().top === 0) {
+      if (window.scrollY === 0) {
+        //alert('bruh')
         body.classList.add('disable-scroll')
         setTimeout(() => {
           body.classList.remove('disable-scroll');
           textControl.start()
-        }, DURATION_ANIMATE + 1900);
+        }, DURATION_ANIMATE + 2100);
         self.animate({
           height: [
             '100vh',
             '80vh'
           ]
         }, {
-          delay: DURATION_ANIMATE + 900,
+          delay: DURATION_ANIMATE + 1100,
           duration: 500,
           easing: 'ease-in-out',
           fill: 'backwards'

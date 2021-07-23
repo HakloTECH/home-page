@@ -7,11 +7,11 @@ const { min, max } = Math
 const rootStyle = document.documentElement.style
 
 const DURATION_GATHER = 1300,
-  DURATION_PAUSE = 300,
+  DURATION_PAUSE = 170,
   DURATION_ROLL = 2300,
   DURATION_BEFORE_ROLL = DURATION_GATHER + DURATION_PAUSE,
-  DURATION_ANIMATE = DURATION_GATHER + DURATION_PAUSE + DURATION_ROLL,
-  LOGO_HALF_WIDTH = 170, LOGO_HEIGHT = 180//, BOTTOM_LINE_RATIO = 
+  DURATION_ANIMATE = DURATION_BEFORE_ROLL + DURATION_ROLL,
+  LOGO_HALF_WIDTH = 170, LOGO_HEIGHT = 180
 const lineAnimKeyFrame = {
   strokeDashoffset: [
     1, 0
@@ -33,6 +33,7 @@ export default () => {
   const refs: {
     logo?: ElemType<'svg'>
     logoG?: ElemType<'g'>
+    shadowFilter?: ElemType<'feDropShadow'>
     pathCentr?: ElemType<'path'>
     pathAround?: ElemType<'path'>
     colorStop?: ElemType<'stop'>
@@ -63,12 +64,15 @@ export default () => {
         <stop offset="0%" stop-color='#01fdff' ></stop>
         <stop offset="85%" stop-color='#01fdff' ref={[refs, 'colorStop']}></stop>
       </linearGradient>
+      <filter id="logo_shine" >
+        <feDropShadow ref={[refs, 'shadowFilter']} dx="0" dy="0" stdDeviation="0" flood-color="#8fd0ff" />
+      </filter>
       <clipPath id="cut-in-logo">
         <rect x="-80%" y="65" width="160%" height="300" />
       </clipPath>
       <g ref={[refs, 'logoG']} >
 
-        <g ref={[refs, 'logoShape']} stroke='transparent' fill="url(#logo_grad)">
+        <g ref={[refs, 'logoShape']} stroke='transparent' fill="url(#logo_grad)" filter='url(#logo_shine)'>
           <path ref={[refs, 'pathAround']} d='M 0 0 l 0 0 l 0 0 l 0 0 z m 0 0 l 0 0 l 0 0 l 0 0 z M 0 0 l 0 0 l 0 0 l 0 0 z m 0 0 l 0 0 l 0 0 l 0 0 z M 0 0 l 0 0 l 0 0 l 0 0 z m 0 0 l 0 0 l 0 0 l 0 0 z M 0 0 l 0 0 l 0 0' >
           </path>
           <path ref={[refs, 'pathCentr']} d='M 0 0 l 0 0 l 0 0 z'></path>
@@ -91,7 +95,7 @@ export default () => {
 
     </svg>
   </div>
-  const { logo, logoG, colorStop, pathAround, pathCentr, logoShape, titleChars, bottomLine1, bottomLine2,
+  const { logo, logoG, shadowFilter, colorStop, pathAround, pathCentr, logoShape, titleChars, bottomLine1, bottomLine2,
     line1, line2, line3, line4, line5, line6, line7, line8, line9, line10,
   } = refs
   let bigger: number
@@ -163,25 +167,37 @@ export default () => {
       ],
       duration: DURATION_GATHER,
     })
+    anime({
+      targets: shadowFilter,
+      stdDeviation: [
+        {value: '0'},
+        {value: '8'},
+        {value: '5'},
+        {value: '0'}
+      ],
+      easing: 'linear',
+      delay: DURATION_ANIMATE + 100,
+      duration: 1200
+    })
     const animations = [
-      logoShape.animate({
-        filter: [
-          'drop-shadow(0px 0px 0px #8fd0ff)',
-          'drop-shadow(0px 0px .8rem #8fd0ff)',
-          'drop-shadow(0px 0px .5rem #8fd0ff)',
-          'drop-shadow(0px 0px 0px #8fd0ff)'
+      /*shadowFilter.animate({
+        stdDeviation: [
+          '0',
+          '8',
+          '5',
+          '0'
         ]
       }, {
         easing: 'linear',
         delay: DURATION_ANIMATE + 200,
         duration: 800
-      }),
+      }),*/
       colorStop.animate({
         stopColor: ['#6ce9fb', '#d15af9'],
         easing: 'cubic-bezier(0.32, 0, 0.67, 0)',
       }, {
         easing: 'ease-in',
-        delay: DURATION_ANIMATE - 700,
+        delay: DURATION_ANIMATE - 600,
         duration: 1500,
         fill: 'forwards'
       }),

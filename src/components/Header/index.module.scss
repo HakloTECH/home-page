@@ -5,7 +5,7 @@
   position: fixed;
   top: 0;
   width: 100vw;
-  height: 80vh;
+  height: var(--header-height);
   background-color: rgba(0,0,0,0);
   z-index: 200;
   transition: background-color .2s ease-in;
@@ -25,7 +25,7 @@
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    pointer-events: none;
     clip-path: polygon(0 var(--header-logo-bottom-y), 100vw var(--header-logo-bottom-y), 100vw calc(var(--header-logo-bottom-y) + 6em), 0 calc(var(--header-logo-bottom-y) + 6em));
     .descText {
       position: absolute;
