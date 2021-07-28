@@ -158,7 +158,7 @@ export default () => {
             'M 0 0 l 0 0 l 0 0 z',
             'M 0 0 l 0 0 l 0 0 z'
           ],
-          duration: DURATION_GATHER * .7
+          duration: DURATION_GATHER * .75
         },
         {
           value: `M 0 -23.094010767585026 l 20 34.64101615137754 l -40 0 z`,
