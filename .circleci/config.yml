@@ -1,26 +1,22 @@
 version: 2.1
-orbs:
-  node: circleci/node@4.5.1
 
 jobs:
   working_directory: ~/workspace
   setup:
-    executor: node/default
+    docker:
+      - image: cimg/node:16.6.0
     steps:
       - checkout
-      - node/install:
-          node-version: 16.5.0
-          npm-version: 7.19.1
-      - node/install-packages:
-          app-dir: 
-          cache-path: node_modules
-          override-ci-command: npm i
+      - run:
+          name: install libraries
+          command: npm i
       - persist_to_workspace:
           root: .
           paths:
             - .
   build:
-    executor: node/default
+    docker:
+      - image: cimg/node:16.6.0
     steps:
       - run:
           name: check node version
@@ -36,7 +32,8 @@ jobs:
           paths:
             - .
   deploy:
-    executor: node/default
+    docker:
+      - image: cimg/node:16.6.0
     steps:
       - checkout
       - attach_workspace:
