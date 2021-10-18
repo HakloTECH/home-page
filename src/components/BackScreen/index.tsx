@@ -1,4 +1,4 @@
-import { ElemType } from "bluejsx"
+import { ElemType, RefType } from "bluejsx"
 import { backScreen as CLASS_BACK_SCREEN, screen as CLASS_SCREEN, active as CLASS_ACTIVE, shutter as CLASS_SHUTTER, shut as CLASS_SHUT } from './index.module.scss'
 
 const ctxNames = ['2d', 'webgl', 'webgl2', 'webgpu'] as const
@@ -40,9 +40,9 @@ class CanvasInfoList {
   }
 }
 
-const refs: {
-  shutter?: ElemType<'div'>
-} = {}
+const refs: RefType<{
+  shutter: 'div'
+}> = {}
 const canvasInfos = new CanvasInfoList()
 
 const backScreen = <div class={CLASS_BACK_SCREEN}>

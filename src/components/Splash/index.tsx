@@ -1,4 +1,4 @@
-import { ElemType } from 'bluejsx'
+import { ElemType, RefType } from 'bluejsx'
 import anime from 'animejs';
 import { logo_anime as CLASS_LOGO } from './index.module.scss'
 import { bottomLines as CLASS_BOTTOM_LINE } from '../Header/index.module.scss'
@@ -30,29 +30,29 @@ const lineAnimKeyFrame = {
 
 export { DURATION_ANIMATE }
 export default () => {
-  const refs: {
-    logo?: ElemType<'svg'>
-    logoG?: ElemType<'g'>
-    shadowFilter?: ElemType<'feDropShadow'>
-    pathCentr?: ElemType<'path'>
-    pathAround?: ElemType<'path'>
-    colorStop?: ElemType<'stop'>
-    logoShape?: ElemType<'g'>
-    titleChars?: ElemType<'g'>
-    bottomLine1?: ElemType<'line'>
-    bottomLine2?: ElemType<'line'>
-    line1?: ElemType<'line'>
-    line2?: ElemType<'line'>
-    line3?: ElemType<'line'>
-    line4?: ElemType<'path'>
-    line5?: ElemType<'line'>
-    line6?: ElemType<'line'>
-    line7?: ElemType<'line'>
-    line8?: ElemType<'line'>
-    line9?: ElemType<'line'>
-    line10?: ElemType<'path'>
+  const refs: RefType<{
+    logo: 'svg'
+    logoG: 'g'
+    shadowFilter: 'feDropShadow'
+    pathCentr: 'path'
+    pathAround:'path'
+    colorStop:'stop'
+    logoShape:'g'
+    titleChars:'g'
+    bottomLine1:'line'
+    bottomLine2:'line'
+    line1:'line'
+    line2:'line'
+    line3:'line'
+    line4:'path'
+    line5:'line'
+    line6:'line'
+    line7:'line'
+    line8:'line'
+    line9:'line'
+    line10:'path'
 
-  } = {}
+  }> = {}
   const self = <div class={CLASS_LOGO}>
     <svg ref={[refs, 'logo']}>
       <linearGradient id='logo_grad' gradientUnits='userSpaceOnUse'
