@@ -11,13 +11,6 @@ let canvas: HTMLCanvasElement, animFrameId: number
  */
 type EasingFunction = (x: number) => number
 
-const ease: EasingFunction = x => {
-  const doubleX = 2 * x
-  if (x < .5) {
-    return doubleX ** 2 / 2
-  }
-  return 1 - (doubleX - 2) ** 2 / 2
-}
 const easeInOutCubic: EasingFunction = x => {
   return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
 }
