@@ -1,42 +1,84 @@
 import { ElemType, RefType } from "bluejsx"
-import { backScreen as CLASS_BACK_SCREEN, screen as CLASS_SCREEN, active as CLASS_ACTIVE, shutter as CLASS_SHUTTER, shut as CLASS_SHUT } from './index.module.scss'
+import style, { active as CLASS_ACTIVE } from './index.module.scss'
+import { PainterData } from "./util"
+import OffScreenWorker from './offScreenWorker?worker'
+import { waitMe } from "../Splash/util"
 
-const ctxNames = ['2d', 'webgl', 'webgl2', 'webgpu'] as const
+const { okToGo } = waitMe()
+const ctxNames = ['2d', 'webgl', 'webgl2'/* , 'webgpu' */, 'video'] as const
+
+const OFF_SCREEN_AVAILABLE = 'transferControlToOffscreen' in HTMLCanvasElement.prototype
+
+type OffscreenCanvas = Transferable
 type CTXName = typeof ctxNames[number]
+type ScreenElement = HTMLCanvasElement | HTMLVideoElement
+
+
+type ScreenInfo = {
+  ctx?: RenderingContext | HTMLVideoElement
+  toFront: () => void
+  toBack: () => void
+}
+/**
+ * only used when OFF_SCREEN_AVAILABLE
+ */
+const offscreenObjects: OffscreenCanvas[] = []
+/**
+ * only used when !OFF_SCREEN_AVAILABLE
+ */
+const CTXs: {
+  [key: string]: RenderingContext
+} = {}
 
 class CanvasInfoList {
-  elements: HTMLCanvasElement[] = []
+  elements: ScreenElement[] = []
   screenInfo: {
-    [key in CTXName]?: {
-      ctx: RenderingContext
-      toFront: ()=>void
-      toBack: ()=>void
-    }
+    [key in CTXName]?: ScreenInfo
   } = {}
-  sendCurrentScreenBack: ()=>void = ()=>{}
+  sendCurrentScreenBack: () => void = () => { }
   constructor() {
     for (let i = ctxNames.length; i--;) {
       const key = ctxNames[i]
-      const canvas = <canvas class={CLASS_SCREEN} /> as ElemType<'canvas'>
-      this.screenInfo[key] = {
-        ctx: canvas.getContext(key),
-        toFront: ()=> canvas.classList.add(CLASS_ACTIVE),
-        toBack: ()=> canvas.classList.remove(CLASS_ACTIVE),  
+      if (key === 'video') {
+        const video = <video class={style.screen} /> as ElemType<'video'>
+        this.screenInfo[key] = {
+          ctx: video,
+          toFront: () => video.classList.add(CLASS_ACTIVE),
+          toBack: () => video.classList.remove(CLASS_ACTIVE),
+        }
+        this.elements[i] = video
+      } else {
+        const canvas = <canvas class={style.screen} /> as ElemType<'canvas'>
+
+        const info: ScreenInfo = {
+          toFront: () => canvas.classList.add(CLASS_ACTIVE),
+          toBack: () => canvas.classList.remove(CLASS_ACTIVE),
+        }
+        if(OFF_SCREEN_AVAILABLE) {
+          const offscreen = canvas.transferControlToOffscreen()
+          offscreenObjects.push(offscreen)
+        } else {
+          const ctx = canvas.getContext(key)
+          CTXs[key] = ctx
+          info.ctx = ctx
+        }
+        this.screenInfo[key] = info
+        this.elements[i] = canvas
       }
-      this.elements[i] = canvas
+      
     }
   }
-  forAllElements(func: (canvas: HTMLCanvasElement) => void) {
+  forAllElements(func: (canvas: ScreenElement) => void) {
     for (let i = this.elements.length; i--;) {
       func(this.elements[i])
     }
   }
-  useScreen(ctxName: CTXName){
+  useScreen(ctxName: CTXName) {
     this.sendCurrentScreenBack()
     const screen = this.screenInfo[ctxName]
     screen.toFront()
     this.sendCurrentScreenBack = screen.toBack
-    return screen.ctx
+    if(!OFF_SCREEN_AVAILABLE) return screen.ctx
   }
 }
 
@@ -45,47 +87,103 @@ const refs: RefType<{
 }> = {}
 const canvasInfos = new CanvasInfoList()
 
-const backScreen = <div class={CLASS_BACK_SCREEN}>
+const backScreen = <div class={style.backScreen}>
   {canvasInfos.elements}
-  <div ref={[refs, 'shutter']} class={`${CLASS_SHUTTER} ${CLASS_SHUT}`}></div>
+  <div ref={[refs, 'shutter']} class={`${style.shutter} ${style.shut}`}></div>
 </div> as ElemType<'div'>
 const { shutter } = refs
 
-const fitCanvasToScreen = () => {
-  canvasInfos.forAllElements(canvas => {
-    canvas.width = document.body.clientWidth
-    canvas.height = document.body.clientHeight
-  })
-}
-fitCanvasToScreen()
-window.addEventListener('resize', e => {
-  fitCanvasToScreen()
-})
+
 
 export type backScreenSetter = {
   ctxName: CTXName
-  init: (canvas: RenderingContext) => void | Promise<void>
+  init: (canvas: RenderingContext | HTMLVideoElement) => void | Promise<void>
   dispose: () => void | Promise<void>
 }
 
 let loaded = false
-const waitTillLoad = () => new Promise(resolve=>{
-  if(loaded) resolve(0)
+const waitTillLoad = () => new Promise(resolve => {
+  if (loaded) resolve(0)
   else {
-    addEventListener('load',()=>setTimeout(()=>{
+    addEventListener('load', () => setTimeout(() => {
       loaded = true
       resolve(0)
     }, 300))
   }
 })
-let currentDisposer: () => void | Promise<void>
-
-export const setBackScreen = async ({ ctxName, init, dispose }: backScreenSetter) => {
-  await waitTillLoad()
-  shutter.classList.add(CLASS_SHUT)
-  await currentDisposer?.()
-  await init(canvasInfos.useScreen(ctxName))
-  currentDisposer = dispose
-  shutter.classList.remove(CLASS_SHUT)
+let firstPaint = true
+let offWorker: Worker
+let painterData: PainterData
+let fitCanvasToScreen: (width: number, height: number) => void
+if(OFF_SCREEN_AVAILABLE) {
+  
+  offWorker = new OffScreenWorker()
+  offWorker.onmessage = async (e) => {
+    switch (e.data.type) {
+      case 'paintStart': {
+        shutter.classList.add(style.shut)
+        canvasInfos.useScreen(e.data.ctxName)
+        break;
+      }
+      case 'paintEnd': {
+        shutter.classList.remove(style.shut)
+        if(firstPaint){
+          okToGo()
+          firstPaint = false
+        }
+        break;
+      }
+    }
+  }
+  offWorker.postMessage({
+    type: 'init',
+    canvases: offscreenObjects,
+    ctxNames: ['2d', 'webgl', 'webgl2'/* , 'webgpu' */]
+  }, offscreenObjects)
+  fitCanvasToScreen = (width, height) => {
+    offWorker.postMessage({
+      type: 'resize',
+      width,
+      height
+    })
+  }
+} else {
+  painterData = new PainterData()
+  fitCanvasToScreen = (width, height) => {
+    canvasInfos.forAllElements(canvas => {
+      canvas.width = width
+      canvas.height = height
+    })
+  }
+  
 }
-export default backScreen 
+fitCanvasToScreen(document.body.clientWidth, document.body.clientHeight)
+window.addEventListener('resize', () => {
+  fitCanvasToScreen(document.body.clientWidth, document.body.clientHeight)
+})
+let currentDisposer: () => void | Promise<void> = () => { }
+let prevPainterURL: string | null = null
+
+export const setBackScreen = async (scriptURL: string) => {
+  await waitTillLoad()
+  if(OFF_SCREEN_AVAILABLE){
+    offWorker.postMessage({
+      type: 'load',
+      scriptURL
+    })
+  } else {
+    const { success, ctxName, init } = await painterData.loadPainter(scriptURL, CTXs)
+    if(!success || prevPainterURL === scriptURL) return 0
+    if(firstPaint){
+      okToGo()
+      firstPaint = false
+    }
+    shutter.classList.add(style.shut)
+    await currentDisposer?.()
+    canvasInfos.useScreen(ctxName as CTXName)
+    prevPainterURL = scriptURL
+    currentDisposer = (await init()).dispose
+    shutter.classList.remove(style.shut)
+  }
+}
+export default backScreen

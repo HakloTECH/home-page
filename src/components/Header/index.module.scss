@@ -6,18 +6,19 @@
   top: 0;
   width: 100vw;
   height: var(--header-height);
-  background-color: rgba(0,0,0,0);
+  
   z-index: 200;
-  transition: background-color .2s ease-in;
+  transition: backdrop-filter .3s ease-in-out, background-color .15s ease-out;
   &.blackback {
-    background-color: rgba(0, 0, 0, 0.6);
-    transition: background-color .3s ease-in;
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+    //background-color: #dddddd12;
     .bottomLines {
       opacity: 0;
     }
     &:hover {
-      background-color: black;
-      transition: background-color .3s ease-in;
+      background-color: rgba(0, 0, 0, 0.5);
+      transition: background-color .15s ease-in;
     }
   }
   .descTextField{
@@ -33,9 +34,9 @@
       right: 0;
       width: 80vw;
       margin: auto;
-      font-family: Arial, Helvetica, sans-serif;
-      //font-size: min(max(1.2em, 4vw), 1.7em);
-      font-size: min(max(1.1em, 3vw), 1.6em);
+      //font-family: Arial, Helvetica, sans-serif;
+      font-size: min(max(1.2em, 4vw), 1.7em);
+      //font-size: min(max(1.1em, 3vw), 1.6em);
       text-align: center;
       color: white;
     }

@@ -2,6 +2,7 @@ import { ElemType, RefType } from 'bluejsx'
 import { initText } from '../../catchPhraseAnim'
 import Splash, { DURATION_ANIMATE } from '../Splash'
 import { header as CLASS_HEADER, blackback as CLASS_BLACKBACK, descText as CLASS_DESCTEXT, descTextField as CLASS_DESCTEXT_FIELD } from './index.module.scss'
+import { listenStart } from '../Splash/util'
 const { body } = document
 const shrinkAnimOptions = {
   duration: 1,
@@ -25,16 +26,17 @@ export default () => {
   const shrink = self.animate({
     height: ['80vh', 'var(--header-height)']
   }, shrinkAnimOptions)
-  
+
   shrink.pause()
-  
+
 
   addEventListener('load', () => {
+    body.classList.add('disable-scroll')
     let blackback = false
     const moveDescTextPos = descText.animate({
       top: ['calc(var(--header-logo-bottom-y) + 15px)', '-20px'],
     }, shrinkAnimOptions)
-    
+
     moveDescTextPos.pause()
     const onScroll = () => {
       const progress = 1 - body.getBoundingClientRect().top / body.offsetHeight
@@ -54,37 +56,25 @@ export default () => {
         }
       }
     }
+
     document.addEventListener('scroll', onScroll)
-    const onVisibilityChange = () => {
-      if (document.hidden) return 0
-      document.removeEventListener('visibilitychange', onVisibilityChange)
-      
-      if (window.scrollY === 0) {
-        //alert('bruh')
-        body.classList.add('disable-scroll')
-        setTimeout(() => {
-          body.classList.remove('disable-scroll');
-          textControl.start()
-        }, DURATION_ANIMATE + 2100);
-        self.animate({
-          height: [
-            '100vh',
-            '80vh'
-          ]
-        }, {
-          delay: DURATION_ANIMATE + 1100,
-          duration: 500,
-          easing: 'ease-in-out',
-          fill: 'backwards'
-        })
-      } else {
-        //self.classList.add(CLASS_BLACKBACK)
-      }
-
-    }
-    document.addEventListener('visibilitychange', onVisibilityChange)
-    onVisibilityChange()
-
+    listenStart(() => {
+      setTimeout(() => {
+        body.classList.remove('disable-scroll');
+        textControl.start()
+      }, DURATION_ANIMATE + 2100);
+      self.animate({
+        height: [
+          '100vh',
+          '80vh'
+        ]
+      }, {
+        delay: DURATION_ANIMATE + 1100,
+        duration: 500,
+        easing: 'ease-in-out',
+        fill: 'backwards'
+      })
+    })
   })
 
   return self
