@@ -15,7 +15,7 @@ export default ()=>{
     //   return command === 'build'
     // },
     transform(code, id){
-      if(/\?url/.test(id)){
+      if(/\.ts\?url/.test(id)){
         id = id.replace(/\?[\w-]+/, '')
         if(config.mode === 'development') return `export default "${id}"`
         const code = buildSync({
