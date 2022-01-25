@@ -37,8 +37,10 @@ export const start = () =>
   </div>
 
 
-setBackScreen(backParticle)
+
 document.querySelector('#app').append(start())
+setBackScreen(backParticle)
+
 const onVisibilityChange = () => {
   if (document.hidden) return 0
   document.removeEventListener('visibilitychange', onVisibilityChange)

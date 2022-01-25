@@ -16,9 +16,8 @@ export default ()=>{
     // },
     transform(code, id){
       if(/\.ts\?url/.test(id)){
-        //return `export default 'data:text/javascript;charset=utf-8,${encodeURIComponent(code)}'`
-        if(config.mode === 'development') return id
         id = id.replace(/\?[\w-]+/, '')
+        if(config.mode === 'development') return `export default "${id}"`
         const code = buildSync({
           bundle: false,
           // minify: true,

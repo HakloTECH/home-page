@@ -2,7 +2,7 @@
 import type { PainterObject } from '../components/BackScreen/util'
 
 const { PI, random } = Math
-let canvas: HTMLCanvasElement, animFrameId: number
+
 
 /**
  * 0 < x < 1
@@ -47,7 +47,8 @@ const transition = (fromValue: number, toValue: number, easing: EasingFunction, 
 
 const particleList = []
 const init = (ctx: CanvasRenderingContext2D) => {
-  canvas = ctx.canvas
+  let animFrameId: number
+  const canvas = ctx.canvas
   const backGradVectorYPos = {
     vStart: 0,
     vEnd: canvas.height * 3,
@@ -110,23 +111,12 @@ const init = (ctx: CanvasRenderingContext2D) => {
     animFrameId = requestAnimationFrame(render);
   }
   const amountParticles = canvas.width * canvas.height * 0.000036
-  //console.log(amountParticles);
   for (let i = amountParticles; i > 0; i--) {
     particleList.push(new BackAnimatingParticle());
   }
-  //const start = () => {
+  //setTimeout(()=> {
   animFrameId = requestAnimationFrame(render);
-  // anime({
-  //   targets: backGradVectorYPos,
-  //   duration: 6000,
-  //   //round: 1,
-  //   vStart: [0, -canvas.height * 2],
-  //   vEnd: [canvas.height * 3, canvas.height],
-  //   easing: 'easeInOutCubic',
-  //   //delay: 1000
-  // })
-  //}
-  //setTimeout(()=>start(),2500);
+  //},2500);
   return {
     dispose: () => {
       cancelAnimationFrame(animFrameId)

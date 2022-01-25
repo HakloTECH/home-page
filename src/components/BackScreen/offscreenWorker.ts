@@ -10,7 +10,7 @@ let canvases: HTMLCanvasElement[]
 const CTXs: {
   [key: string]: RenderingContext
 } = {}
-let currentDisposer: () => void | Promise<void> = () => { }
+let currentDisposer: () => void | Promise<void>
 let prevPainterURL: string | null = null
 self.onmessage = async (
   e: MessageEvent<{
