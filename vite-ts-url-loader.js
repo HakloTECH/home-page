@@ -10,12 +10,12 @@ export default ()=>{
       // store the resolved config
       config = resolvedConfig
     },
-    enforce: 'pre',
+    // enforce: 'pre',
     // apply(config, {command}){
     //   return command === 'build'
     // },
     transform(code, id){
-      if(/\.ts\?url/.test(id)){
+      if(/\?url/.test(id)){
         id = id.replace(/\?[\w-]+/, '')
         if(config.mode === 'development') return `export default "${id}"`
         const code = buildSync({
