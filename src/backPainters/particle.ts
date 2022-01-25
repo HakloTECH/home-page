@@ -102,18 +102,19 @@ const init = (ctx: CanvasRenderingContext2D) => {
     backGradVectorYPos.vStart = value
     backGradVectorYPos.vEnd = value + canvas.height * 3
   })
+  const amountParticles = (canvas.width * canvas.height * 0.000036)|0
+  for (let i = amountParticles; i > 0; i--) {
+    particleList.push(new BackAnimatingParticle());
+  }
   const render: FrameRequestCallback = (timestamp) => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawMain();
-    for (let i = particleList.length; i--;)particleList[i].draw()
+    for (let i = amountParticles; i--;)particleList[i].draw()
     if (!vTrans.started) vTrans.start(timestamp)
     if (!vTrans.done) vTrans.step(timestamp)
     animFrameId = requestAnimationFrame(render);
   }
-  const amountParticles = canvas.width * canvas.height * 0.000036
-  for (let i = amountParticles; i > 0; i--) {
-    particleList.push(new BackAnimatingParticle());
-  }
+  
   //setTimeout(()=> {
   animFrameId = requestAnimationFrame(render);
   //},2500);

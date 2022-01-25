@@ -7,7 +7,7 @@ import Header from './components/Header'
 import backScreen from './components/BackScreen'
 import Main from './components/Main'
 import PageSection from './components/PageSection'
-import backParticle from './backPainters/particle?url'
+import backParticle from './backPainters/particle.ts?url'
 import { setBackScreen } from './components/BackScreen'
 
 import {
