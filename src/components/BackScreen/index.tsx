@@ -157,7 +157,8 @@ if(OFF_SCREEN_AVAILABLE) {
   }
   
 }
-fitCanvasToScreen(document.body.clientWidth, document.body.clientHeight)
+addEventListener('load', ()=>fitCanvasToScreen(document.body.clientWidth, document.body.clientHeight))
+
 window.addEventListener('resize', () => {
   fitCanvasToScreen(document.body.clientWidth, document.body.clientHeight)
 })

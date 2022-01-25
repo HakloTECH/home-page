@@ -1,5 +1,5 @@
 import { buildSync } from 'esbuild'
-
+import { pl} from 'vite'
 export default ()=>{
   /** @type {import('vite').ResolvedConfig} */
   let config
@@ -21,6 +21,7 @@ export default ()=>{
         id = id.replace(/\?[\w-]+/, '')
         const code = buildSync({
           bundle: false,
+          // minify: true,
           entryPoints: [id],
           write: false
         }).outputFiles[0].text
