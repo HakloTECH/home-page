@@ -10,7 +10,7 @@ export default ()=>{
       // store the resolved config
       config = resolvedConfig
     },
-    // enforce: 'pre',
+    enforce: 'pre',
     // apply(config, {command}){
     //   return command === 'build'
     // },
