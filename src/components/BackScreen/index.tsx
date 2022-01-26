@@ -176,7 +176,7 @@ export const setBackScreen = async (scriptURL: string) => {
     const { success, ctxName, init } = await painterData.loadPainter(scriptURL, CTXs)
     if(!success || prevPainterURL === scriptURL) return 0
     if(firstPaint){
-      okToGo()
+      setTimeout(okToGo, 300)
       firstPaint = false
     }
     shutter.classList.add(style.shut)

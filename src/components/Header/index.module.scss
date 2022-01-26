@@ -16,9 +16,11 @@
     .bottomLines {
       opacity: 0;
     }
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.5);
-      transition: background-color .15s ease-in;
+    @media (hover: hover) {
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.5);
+        transition: background-color .15s ease-in;
+      }
     }
   }
   .descTextField{

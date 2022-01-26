@@ -6,3 +6,6 @@
     //scroll-snap-align: start;
   }
 }
+.disable-scroll .section {
+  overflow: hidden;
+}
