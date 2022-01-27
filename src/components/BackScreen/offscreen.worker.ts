@@ -1,9 +1,4 @@
 import { PainterData } from "./util"
-// comunicates with main thread
-// receive each canvas offscreen contexts at init
-
-// when set back screen:
-// receive screen painter URL
 
 const painterData = new PainterData()
 let canvases: HTMLCanvasElement[]
@@ -46,7 +41,7 @@ self.onmessage = async (
       const { width, height } = e.data
       for (let i = canvases.length; i--;) {
         const canvas = canvases[i]
-        if(!canvas) break;
+        if(!canvas) continue;
 
         canvas.width = width
         canvas.height = height

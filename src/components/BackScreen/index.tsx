@@ -1,13 +1,14 @@
 import { ElemType, RefType } from "bluejsx"
 import style, { active as CLASS_ACTIVE } from './index.module.scss'
 import { PainterData } from "./util"
-import OffScreenWorker from './offScreenWorker?worker'
+import OffScreenWorker from './offScreen.worker?worker'
 import { waitMe } from "../Splash/util"
 
 const { okToGo } = waitMe()
 const ctxNames = ['2d', 'webgl', 'webgl2'/* , 'webgpu' */, 'video'] as const
 
-const OFF_SCREEN_AVAILABLE = 'transferControlToOffscreen' in HTMLCanvasElement.prototype
+/* @ts-ignore */
+const OFF_SCREEN_AVAILABLE = import.meta.env.PROD && 'transferControlToOffscreen' in HTMLCanvasElement.prototype
 
 type OffscreenCanvas = Transferable
 type CTXName = typeof ctxNames[number]
