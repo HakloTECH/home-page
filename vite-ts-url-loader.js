@@ -1,5 +1,5 @@
 import { buildSync } from 'esbuild'
-import { pl} from 'vite'
+
 export default ()=>{
   /** @type {import('vite').ResolvedConfig} */
   let config
@@ -20,7 +20,7 @@ export default ()=>{
         if(config.mode === 'development') return `export default "${id}"`
         const code = buildSync({
           bundle: false,
-          // minify: true,
+          minify: true,
           entryPoints: [id],
           write: false
         }).outputFiles[0].text

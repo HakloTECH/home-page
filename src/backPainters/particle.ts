@@ -1,7 +1,6 @@
-//import anime from 'animejs';
 import type { PainterObject } from '../components/BackScreen/util'
 
-const { PI, random } = Math
+const { PI, random, pow } = Math
 
 
 /**
@@ -12,7 +11,7 @@ const { PI, random } = Math
 type EasingFunction = (x: number) => number
 
 const easeInOutCubic: EasingFunction = x => {
-  return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+  return x < 0.5 ? 4 * x * x * x : 1 - pow(-2 * x + 2, 3) / 2;
 }
 /**
  * @param fromValue start value
