@@ -27,7 +27,7 @@ export const start = () =>
       <PageSection start={600} end={3000} speed={0.05}>
         <DescriptionA />
       </PageSection>
-      <PageSection start={1300} end={3000}>
+      <PageSection start={1500} end={3000}>
         <DescriptionB />
       </PageSection>
       {/* <PageSection start={3000} end={5000}>
