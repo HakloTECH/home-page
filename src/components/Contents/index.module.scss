@@ -1,7 +1,24 @@
 .c_a {
   position: absolute;
   top: 20vh;
+  width: max(40vw, 10em);
+  height: fit-content;
+  left: max(60px, min(125px, 13vw));
+  // text-align: center;
+  
+}
+.c_b {
+  position: absolute;
+  top: 45vh;
   width: 40vw;
   height: fit-content;
-  right: 10vw;
+  right: max(10vw, 3em);
+  text-align: right;
+}
+.comming_soon {
+  position: absolute;
+  top: 10vh;
+  width: 100%;
+  height: fit-content;
+  text-align: center;
 }

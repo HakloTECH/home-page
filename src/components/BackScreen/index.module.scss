@@ -23,7 +23,7 @@
     width: 100vw;
     height: 100vh;
     background-color: transparent;
-    transition: background-color 0.5s ease-in;
+    transition: background-color 0.2s ease-in;
     z-index: 0;
     &.shut {
       background-color: black;

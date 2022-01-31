@@ -2,9 +2,12 @@ import { ElemType, RefType } from "bluejsx"
 import style, { active as CLASS_ACTIVE } from './index.module.scss'
 import { PainterData } from "./util"
 import OffScreenWorker from './offScreen.worker?worker'
+import { waitExec, sleep } from "../../utils/lib"
 import { waitMe } from "../Splash/util"
 
-const { okToGo } = waitMe()
+const { okToGo: okToSplash } = waitMe()
+
+const SHUTTER_SWITCH_TIME = 200
 const ctxNames = ['2d', 'webgl', 'webgl2'/* , 'webgpu' */, 'video'] as const
 
 /* @ts-ignore */
@@ -112,24 +115,61 @@ const waitTillLoad = () => new Promise(resolve => {
     }, 300))
   }
 })
+const hideBackScreen = () => {
+  shutter.classList.add(style.shut)
+  const { waitMe } = waitExec(()=>shutter.classList.remove(style.shut))
+  const { okToGo } = waitMe()
+  setTimeout(okToGo, SHUTTER_SWITCH_TIME);
+  return { waitMe }
+}
 let firstPaint = true
 let offWorker: Worker
 let painterData: PainterData
+let okToShowBackScreen: () => void
 let fitCanvasToScreen: (width: number, height: number) => void
+
+/*
+# message order
+
+
+M: main to worker
+W: worker to main
+
+(msg): e.data.type === msg
+{ tasks }: doing tasks
+
+## Initialization: 
+
+M(init)
+
+## Painting:
+
+M(load) -> W(loaded) -> M {
+  shutter on
+  wait for SHUTTER_SWITCH_TIME ms
+} -> M(paintStart) -> W(paintEnd) -> M {
+  shutter off
+  show matched screen
+}
+*/
 if(OFF_SCREEN_AVAILABLE) {
   
   offWorker = new OffScreenWorker()
   offWorker.onmessage = async (e) => {
     switch (e.data.type) {
-      case 'paintStart': {
-        shutter.classList.add(style.shut)
-        canvasInfos.useScreen(e.data.ctxName)
+      case 'loaded': {
+        okToShowBackScreen = hideBackScreen().waitMe().okToGo
+        await sleep(SHUTTER_SWITCH_TIME)
+        offWorker.postMessage({
+          type: 'paintStart'
+        })
         break;
       }
       case 'paintEnd': {
-        shutter.classList.remove(style.shut)
+        okToShowBackScreen()
+        canvasInfos.useScreen(e.data.ctxName)
         if(firstPaint){
-          okToGo()
+          okToSplash()
           firstPaint = false
         }
         break;
@@ -174,18 +214,20 @@ export const setBackScreen = async (scriptURL: string) => {
       scriptURL
     })
   } else {
+    if(prevPainterURL === scriptURL) return 0
     const { success, ctxName, init } = await painterData.loadPainter(scriptURL, CTXs)
-    if(!success || prevPainterURL === scriptURL) return 0
+    if(!success) return 0
+    prevPainterURL = scriptURL
+    okToShowBackScreen = hideBackScreen().waitMe().okToGo
+    await sleep(SHUTTER_SWITCH_TIME)
+    await currentDisposer?.()
+    currentDisposer = (await init()).dispose
+    canvasInfos.useScreen(ctxName as CTXName)
+    okToShowBackScreen()
     if(firstPaint){
-      setTimeout(okToGo, 300)
+      setTimeout(okToSplash, 300)
       firstPaint = false
     }
-    shutter.classList.add(style.shut)
-    await currentDisposer?.()
-    canvasInfos.useScreen(ctxName as CTXName)
-    prevPainterURL = scriptURL
-    currentDisposer = (await init()).dispose
-    shutter.classList.remove(style.shut)
   }
 }
 export default backScreen

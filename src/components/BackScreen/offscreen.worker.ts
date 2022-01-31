@@ -7,6 +7,7 @@ const CTXs: {
 } = {}
 let currentDisposer: () => void | Promise<void>
 let prevPainterURL: string | null = null
+let paint: () => Promise<void>
 self.onmessage = async (
   e: MessageEvent<{
     type: string
@@ -25,27 +26,33 @@ self.onmessage = async (
     }
     case 'load': {
       const { scriptURL } = e.data
+      if(prevPainterURL === scriptURL) return 0
       const { success, ctxName, init } = await painterData.loadPainter(scriptURL, CTXs)
 
-      if (!success || prevPainterURL === scriptURL) return 0
-      postMessage({ type: 'paintStart', ctxName })
-      await currentDisposer?.()
+      if (!success) return 0
       prevPainterURL = scriptURL
-      // console.log('load in worker!!!');
+      paint = async () => {
+        await currentDisposer?.()
 
-      currentDisposer = (await init()).dispose
-      postMessage({ type: 'paintEnd' })
+        currentDisposer = (await init()).dispose
+        postMessage({ type: 'paintEnd', ctxName })
+      }
+      postMessage({ type: 'loaded' })
+      break;
+    }
+    case 'paintStart': {
+      await paint()
       break;
     }
     case 'resize': {
       const { width, height } = e.data
       for (let i = canvases.length; i--;) {
         const canvas = canvases[i]
-        if(!canvas) continue;
+        if (!canvas) continue;
 
         canvas.width = width
         canvas.height = height
-        
+
       }
       break;
     }

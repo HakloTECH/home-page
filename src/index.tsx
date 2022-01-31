@@ -1,17 +1,17 @@
 import './main.scss'
-// import smoothscroll from 'smoothscroll-polyfill';
-
-// smoothscroll.polyfill();
 
 import Header from './components/Header'
 import backScreen from './components/BackScreen'
 import Main from './components/Main'
 import PageSection from './components/PageSection'
 import backParticle from './backPainters/particle.ts?url'
+import backLine from './backPainters/lines.ts?url'
 import { setBackScreen } from './components/BackScreen'
 
 import {
+  CommingSoon,
   DescriptionA,
+  DescriptionB,
   WhatIsHaklo,
   Works,
 } from './components/Contents'
@@ -24,14 +24,20 @@ export const start = () =>
     {backScreen}
     <Header />
     <Main>
-      <PageSection start={600} end={1500}>
+      <PageSection start={600} end={3000} speed={0.05}>
         <DescriptionA />
       </PageSection>
-      <PageSection start={1500} end={2500}>
+      <PageSection start={1300} end={3000}>
+        <DescriptionB />
+      </PageSection>
+      {/* <PageSection start={3000} end={5000}>
         <WhatIsHaklo />
       </PageSection>
-      <PageSection start={2500} end={4500}>
+      <PageSection start={5000} end={7000}>
         <Works />
+      </PageSection> */}
+      <PageSection start={3200} end={5000} screenSetter={backLine} speed={0.01}>
+        <CommingSoon />
       </PageSection>
     </Main>
   </div>

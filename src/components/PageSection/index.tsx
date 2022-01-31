@@ -1,9 +1,10 @@
 import { ElemType, FuncCompParam, RefType } from "bluejsx";
 import style from './index.module.scss'
 import { backScreenSetter, setBackScreen } from '../BackScreen'
+import backParticle from '../../backPainters/particle.ts?url'
 
 let filterCount = 0
-export default ({ children, screenSetter, start, end, speed = .1 }: FuncCompParam<{
+export default ({ children, screenSetter = backParticle, start, end, speed = .1 }: FuncCompParam<{
   screenSetter?: string
   start: number
   end: number

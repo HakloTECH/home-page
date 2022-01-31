@@ -45,13 +45,22 @@ const transition = (fromValue: number, toValue: number, easing: EasingFunction, 
 }
 
 const particleList = []
+let backGradVectorYPos: {
+  vStart: number
+  vEnd: number
+}
+let vTrans: ReturnType<typeof transition>
 const init = (ctx: CanvasRenderingContext2D) => {
   let animFrameId: number
   const canvas = ctx.canvas
-  const backGradVectorYPos = {
+  backGradVectorYPos ??= {
     vStart: 0,
     vEnd: canvas.height * 3,
   }
+  vTrans ??= transition(0, -canvas.height * 2, easeInOutCubic, 6000, (value) => {
+    backGradVectorYPos.vStart = value
+    backGradVectorYPos.vEnd = value + canvas.height * 3
+  })
   const drawMain = () => {
     ctx.beginPath();
     const backgroundGradient = ctx.createLinearGradient(0, backGradVectorYPos.vStart, canvas.width, backGradVectorYPos.vEnd);
@@ -97,11 +106,8 @@ const init = (ctx: CanvasRenderingContext2D) => {
 
     }
   }
-  const vTrans = transition(0, -canvas.height * 2, easeInOutCubic, 6000, (value) => {
-    backGradVectorYPos.vStart = value
-    backGradVectorYPos.vEnd = value + canvas.height * 3
-  })
-  const amountParticles = (canvas.width * canvas.height * 0.000036)|0
+  
+  const amountParticles = (canvas.width * canvas.height * 0.000016)|0
   for (let i = amountParticles; i > 0; i--) {
     particleList.push(new BackAnimatingParticle());
   }

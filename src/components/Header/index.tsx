@@ -1,5 +1,5 @@
 import { RefType } from 'bluejsx'
-import { initText } from '../../catchPhraseAnim'
+import { initText } from '../../utils/catchPhraseAnim'
 import Splash, { DURATION_ANIMATE } from '../Splash'
 import { header as CLASS_HEADER, blackback as CLASS_BLACKBACK, descText as CLASS_DESCTEXT, descTextField as CLASS_DESCTEXT_FIELD } from './index.module.scss'
 import { listenStart } from '../Splash/util'
@@ -34,7 +34,7 @@ export default () => {
     body.classList.add('disable-scroll')
     let blackback = false
     const moveDescTextPos = descText.animate({
-      top: ['calc(var(--header-logo-bottom-y) + 15px)', '-20px'],
+      top: ['calc(var(--header-logo-bottom-y) + 15px)', '-10px'],
     }, shrinkAnimOptions)
 
     moveDescTextPos.pause()
