@@ -1,7 +1,6 @@
 import { waitExec } from '../../utils/lib'
 type Listener = ()=>void
 const splashFuncs: Listener[] = []
-const waiting: boolean[] = []
 export const listenStart = (func: Listener) =>{
   splashFuncs.push(func)
 }
