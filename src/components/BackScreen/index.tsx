@@ -1,7 +1,7 @@
 import { ElemType, RefType } from "bluejsx"
 import style, { active as CLASS_ACTIVE } from './index.module.scss'
 import { PainterData } from "./util"
-import OffScreenWorker from './offScreen.worker.ts?worker'
+import OffScreenWorker from './offScreen.worker?worker'
 import { waitExec, sleep } from "../../utils/lib"
 import { waitMe } from "../Splash/util"
 
