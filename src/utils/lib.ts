@@ -6,7 +6,7 @@ export const waitExec = (func: Listener) => {
   const waiting: boolean[] = []
   let count = 0
   /**
-   * tells the process to wait till all factors run `okToGo`
+   * tells the process to wait till you call `okToGo`
    */
   const waitMe = () => {
     const i = count++
