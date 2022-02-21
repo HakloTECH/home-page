@@ -1,5 +1,5 @@
 import { ElemType, RefType } from "bluejsx"
-import style, { active as CLASS_ACTIVE } from './index.module.scss'
+import style from './index.module.scss'
 import { PainterData } from "./util"
 import OffScreenWorker from './offScreen.worker?worker'
 import { waitExec, sleep } from "../../utils/lib"
@@ -10,7 +10,6 @@ const { okToGo: okToSplash } = waitMe()
 const SHUTTER_SWITCH_TIME = 200
 const ctxNames = ['2d', 'webgl', 'webgl2'/* , 'webgpu' */, 'video'] as const
 
-/* @ts-ignore */
 const OFF_SCREEN_AVAILABLE = import.meta.env.PROD && 'transferControlToOffscreen' in HTMLCanvasElement.prototype
 
 type OffscreenCanvas = Transferable
@@ -47,16 +46,16 @@ class CanvasInfoList {
         const video = <video class={style.screen} /> as ElemType<'video'>
         this.screenInfo[key] = {
           ctx: video,
-          toFront: () => video.classList.add(CLASS_ACTIVE),
-          toBack: () => video.classList.remove(CLASS_ACTIVE),
+          toFront: () => video.classList.add(style.active),
+          toBack: () => video.classList.remove(style.active),
         }
         this.elements[i] = video
       } else {
         const canvas = <canvas class={style.screen} /> as ElemType<'canvas'>
 
         const info: ScreenInfo = {
-          toFront: () => canvas.classList.add(CLASS_ACTIVE),
-          toBack: () => canvas.classList.remove(CLASS_ACTIVE),
+          toFront: () => canvas.classList.add(style.active),
+          toBack: () => canvas.classList.remove(style.active),
         }
         if(OFF_SCREEN_AVAILABLE) {
           const offscreen = canvas.transferControlToOffscreen()
