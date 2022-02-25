@@ -1,4 +1,4 @@
-import { ElemType, RefType } from 'bluejsx'
+import { ElemType, getRefs } from 'bluejsx'
 import anime from 'animejs';
 import { logo_anime as CLASS_LOGO } from './index.module.scss'
 import { bottomLines as CLASS_BOTTOM_LINE } from '../Header/index.module.scss'
@@ -30,7 +30,7 @@ const lineAnimKeyFrame = {
 
 export { DURATION_ANIMATE }
 export default () => {
-  const refs: RefType<{
+  const refs = getRefs<{
     logo: 'svg'
     logoG: 'g'
     shadowFilter: 'feDropShadow'
@@ -52,7 +52,7 @@ export default () => {
     line9: 'line'
     line10: 'path'
 
-  }> = {}
+  }>()
   const self = <div class={CLASS_LOGO}>
     <svg ref={[refs, 'logo']}>
       <linearGradient id='logo_grad' gradientUnits='userSpaceOnUse'

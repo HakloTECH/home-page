@@ -1,4 +1,4 @@
-import { ElemType, FuncCompParam, RefType } from "bluejsx";
+import { ElemType, FuncCompParam, getRefs } from "bluejsx";
 import style from './index.module.scss'
 import { backScreenSetter, setBackScreen } from '../BackScreen'
 
@@ -9,10 +9,10 @@ export default ({ children, screenSetter, start, end, speed = .1 }: FuncCompPara
   end: number
   speed?: number
 }>) => {
-  const refs: RefType<{
+  const refs = getRefs<{
     gblur: 'feGaussianBlur'
     fa: 'feFuncA'
-  }> = {}
+  }>()
   const filterId = `section_filter-${filterCount++}`
   const self = <section class={style.section}>
     {children}

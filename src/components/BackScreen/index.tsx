@@ -1,4 +1,4 @@
-import { ElemType, RefType } from "bluejsx"
+import { ElemType, getRefs } from "bluejsx"
 import style from './index.module.scss'
 import { PainterData } from "./util"
 import OffScreenWorker from './offScreen.worker?worker'
@@ -85,9 +85,9 @@ class CanvasInfoList {
   }
 }
 
-const refs: RefType<{
+const refs = getRefs<{
   shutter: 'div'
-}> = {}
+}>()
 const canvasInfos = new CanvasInfoList()
 
 const backScreen = <div class={style.backScreen}>

@@ -1,4 +1,4 @@
-import { RefType } from 'bluejsx'
+import { getRefs } from 'bluejsx'
 import { initText } from '../../utils/catchPhraseAnim'
 import Splash, { DURATION_ANIMATE } from '../Splash'
 import { header as CLASS_HEADER, blackback as CLASS_BLACKBACK, descText as CLASS_DESCTEXT, descTextField as CLASS_DESCTEXT_FIELD } from './index.module.scss'
@@ -11,10 +11,10 @@ const shrinkAnimOptions = {
   delay: 1,
 } as KeyframeAnimationOptions
 export default () => {
-  const refs: RefType<{
+  const refs = getRefs<{
     splash: typeof Splash
     descText: 'p'
-  }> = {}
+  }>()
   const self = <header class={CLASS_HEADER}>
     <Splash ref={[refs, 'splash']} />
     <div class={CLASS_DESCTEXT_FIELD}>
