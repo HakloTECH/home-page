@@ -1,7 +1,6 @@
 import { ElemType, getRefs } from "bluejsx"
 import style from './index.module.scss'
 import { PainterData } from "./util"
-import OffScreenWorker from './offScreen.worker?worker'
 import { waitExec, sleep } from "../../utils/lib"
 import { waitMe } from "../Splash/util"
 
@@ -57,7 +56,7 @@ class CanvasInfoList {
           toFront: () => canvas.classList.add(style.active),
           toBack: () => canvas.classList.remove(style.active),
         }
-        if(OFF_SCREEN_AVAILABLE) {
+        if (OFF_SCREEN_AVAILABLE) {
           const offscreen = canvas.transferControlToOffscreen()
           offscreenObjects.push(offscreen)
         } else {
@@ -68,7 +67,7 @@ class CanvasInfoList {
         this.screenInfo[key] = info
         this.elements[i] = canvas
       }
-      
+
     }
   }
   forAllElements(func: (canvas: ScreenElement) => void) {
@@ -81,7 +80,7 @@ class CanvasInfoList {
     const screen = this.screenInfo[ctxName]
     screen.toFront()
     this.sendCurrentScreenBack = screen.toBack
-    if(!OFF_SCREEN_AVAILABLE) return screen.ctx
+    if (!OFF_SCREEN_AVAILABLE) return screen.ctx
   }
 }
 
@@ -116,7 +115,7 @@ const waitTillLoad = () => new Promise(resolve => {
 })
 const hideBackScreen = () => {
   shutter.classList.add(style.shut)
-  const { waitMe } = waitExec(()=>shutter.classList.remove(style.shut))
+  const { waitMe } = waitExec(() => shutter.classList.remove(style.shut))
   const { okToGo } = waitMe()
   setTimeout(okToGo, SHUTTER_SWITCH_TIME);
   return { waitMe }
@@ -151,9 +150,11 @@ M(load) -> W(loaded) -> M {
   show matched screen
 }
 */
-if(OFF_SCREEN_AVAILABLE) {
-  
-  offWorker = new OffScreenWorker()
+if (OFF_SCREEN_AVAILABLE) {
+
+  offWorker = new Worker(
+    new URL('./offscreen.worker.ts', import.meta.url)
+  )
   offWorker.onmessage = async (e) => {
     switch (e.data.type) {
       case 'loaded': {
@@ -167,7 +168,7 @@ if(OFF_SCREEN_AVAILABLE) {
       case 'paintEnd': {
         okToShowBackScreen()
         canvasInfos.useScreen(e.data.ctxName)
-        if(firstPaint){
+        if (firstPaint) {
           okToSplash()
           firstPaint = false
         }
@@ -195,9 +196,9 @@ if(OFF_SCREEN_AVAILABLE) {
       canvas.height = height
     })
   }
-  
+
 }
-addEventListener('load', ()=>fitCanvasToScreen(document.body.clientWidth, document.body.clientHeight))
+addEventListener('load', () => fitCanvasToScreen(document.body.clientWidth, document.body.clientHeight))
 
 window.addEventListener('resize', () => {
   fitCanvasToScreen(document.body.clientWidth, document.body.clientHeight)
@@ -207,15 +208,15 @@ let prevPainterURL: string | null = null
 
 export const setBackScreen = async (scriptURL: string) => {
   await waitTillLoad()
-  if(OFF_SCREEN_AVAILABLE){
+  if (OFF_SCREEN_AVAILABLE) {
     offWorker.postMessage({
       type: 'load',
       scriptURL
     })
   } else {
-    if(prevPainterURL === scriptURL) return 0
+    if (prevPainterURL === scriptURL) return 0
     const { success, ctxName, init } = await painterData.loadPainter(scriptURL, CTXs)
-    if(!success) return 0
+    if (!success) return 0
     prevPainterURL = scriptURL
     okToShowBackScreen = hideBackScreen().waitMe().okToGo
     await sleep(SHUTTER_SWITCH_TIME)
@@ -223,7 +224,7 @@ export const setBackScreen = async (scriptURL: string) => {
     currentDisposer = (await init()).dispose
     canvasInfos.useScreen(ctxName as CTXName)
     okToShowBackScreen()
-    if(firstPaint){
+    if (firstPaint) {
       setTimeout(okToSplash, 300)
       firstPaint = false
     }
