@@ -1,7 +1,7 @@
 import { ElemType, getRefs } from 'bluejsx'
 import anime from 'animejs';
-import { logo_anime as CLASS_LOGO } from './index.module.scss'
-import { bottomLines as CLASS_BOTTOM_LINE } from '../Header/index.module.scss'
+import style from './index.module.scss'
+import headerStyle from '../Header/index.module.scss'
 import { listenStart } from './util';
 const { min, max } = Math
 const rootStyle = document.documentElement.style
@@ -53,7 +53,7 @@ export default () => {
     line10: 'path'
 
   }>()
-  const self = <div class={CLASS_LOGO}>
+  const self = <div class={style.logo_anime}>
     <svg ref={[refs, 'logo']}>
       <linearGradient id='logo_grad' gradientUnits='userSpaceOnUse'
         x1='-20px'
@@ -89,8 +89,8 @@ export default () => {
           <line ref={[refs, 'line9']} stroke-dasharray='1,1' pathLength='1' x1="141" y1="46" x2="141" y2="-50" />
           <path ref={[refs, 'line10']} stroke-dasharray='1,1' pathLength='1' d="M 190 46 C 173.994 46 161 33.006 161 17 C 161 0.994 173.994 -12 190 -12 C 206.006 -12 219 0.994 219 17 C 219 33.006 206.006 46 190 46 Z"></path>
         </g>
-        <line ref={[refs, 'bottomLine1']} class={CLASS_BOTTOM_LINE} stroke="white" stroke-dasharray='1,1' pathLength='1' stroke-dashoffset="1" stroke-width='2' x1='0' y1='70px' y2='70px' ></line>
-        <line ref={[refs, 'bottomLine2']} class={CLASS_BOTTOM_LINE} stroke="white" stroke-dasharray='1,1' pathLength='1' stroke-dashoffset="1" stroke-width='2' x1='0' y1='70px' y2='70px' ></line>
+        <line ref={[refs, 'bottomLine1']} class={headerStyle.bottomLines} stroke="white" stroke-dasharray='1,1' pathLength='1' stroke-dashoffset="1" stroke-width='2' x1='0' y1='70px' y2='70px' ></line>
+        <line ref={[refs, 'bottomLine2']} class={headerStyle.bottomLines} stroke="white" stroke-dasharray='1,1' pathLength='1' stroke-dashoffset="1" stroke-width='2' x1='0' y1='70px' y2='70px' ></line>
       </g>
 
     </svg>

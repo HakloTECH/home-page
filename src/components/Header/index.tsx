@@ -1,7 +1,7 @@
 import { getRefs } from 'bluejsx'
 import { initText } from '../../utils/catchPhraseAnim'
 import Splash, { DURATION_ANIMATE } from '../Splash'
-import { header as CLASS_HEADER, blackback as CLASS_BLACKBACK, descText as CLASS_DESCTEXT, descTextField as CLASS_DESCTEXT_FIELD } from './index.module.scss'
+import style from './index.module.scss'
 import { listenStart } from '../Splash/util'
 const { body } = document
 const shrinkAnimOptions = {
@@ -15,10 +15,10 @@ export default () => {
     splash: typeof Splash
     descText: 'p'
   }>()
-  const self = <header class={CLASS_HEADER}>
+  const self = <header class={style.header}>
     <Splash ref={[refs, 'splash']} />
-    <div class={CLASS_DESCTEXT_FIELD}>
-      <p ref={[refs, 'descText']} class={CLASS_DESCTEXT} />
+    <div class={style.descTextField}>
+      <p ref={[refs, 'descText']} class={style.descText} />
     </div>
   </header>
   const { splash, descText } = refs
@@ -44,13 +44,13 @@ export default () => {
       moveDescTextPos.currentTime = progress
       if (progress > 2) {
         if (!blackback) {
-          self.classList.add(CLASS_BLACKBACK)
+          self.classList.add(style.blackback)
           textControl.stop()
           blackback = true
         }
       } else {
         if (blackback) {
-          self.classList.remove(CLASS_BLACKBACK)
+          self.classList.remove(style.blackback)
           textControl.start()
           blackback = false
         }
