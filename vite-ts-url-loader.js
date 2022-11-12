@@ -29,7 +29,7 @@ export default ()=>{
           type: 'asset',
           source: code
         })
-        return `export default "/__VITE_ASSET__${url}__"`
+        return `export default "__VITE_ASSET__${url}__"`
       }
     }
   })
