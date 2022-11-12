@@ -1,4 +1,4 @@
-import { ElemType, FuncCompParam } from "bluejsx"
+import { FuncCompParam } from "bluejsx"
 import style from './index.module.scss'
 import PageSection from "../PageSection"
 
@@ -17,7 +17,7 @@ const scrollFrame = scrollTarget === document.body
 window.onbeforeunload =  () => {
   scrollTarget.scrollTop = 0
 };
-export default ({ children }: FuncCompParam<{ children?: typeof PageSection[] }>) => {
+export default ({ children }: FuncCompParam<{ children: typeof PageSection[] }>) => {
 
   const self = <div class={style.container}>
     {children}

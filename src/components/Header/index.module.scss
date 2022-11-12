@@ -5,8 +5,8 @@
   position: fixed;
   top: 0;
   width: 100vw;
-  height: var(--header-height);
-  
+  height: 80vh;
+  padding-block-start: env(safe-area-inset-top);
   z-index: 200;
   transition: backdrop-filter .3s ease-in-out, background-color .15s ease-out;
   &.blackback {
@@ -25,7 +25,7 @@
   }
   .descTextField{
     position: fixed;
-    top: 0;
+    top: env(safe-area-inset-top);
     left: 0;
     width: 100vw;
     pointer-events: none;

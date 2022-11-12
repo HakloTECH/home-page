@@ -23,14 +23,14 @@ export default () => {
   </header>
   const { splash, descText } = refs
   const textControl = initText(descText)
-  const shrink = self.animate({
-    height: ['80vh', 'var(--header-height)']
-  }, shrinkAnimOptions)
-
-  shrink.pause()
 
 
   addEventListener('load', () => {
+    const shrink = self.animate({
+      height: ['80vh', 'var(--header-height)']
+    }, shrinkAnimOptions)
+  
+    shrink.pause()
     body.classList.add('disable-scroll')
     let blackback = false
     const moveDescTextPos = descText.animate({

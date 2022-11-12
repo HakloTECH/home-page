@@ -94,12 +94,12 @@ export default () => {
       </g>
 
     </svg>
-  </div>
+  </div> as ElemType<'div'>
   const { logo, logoG, shadowFilter, colorStop, pathAround, pathCentr, logoShape, titleChars, bottomLine1, bottomLine2,
     line1, line2, line3, line4, line5, line6, line7, line8, line9, line10,
   } = refs
   let bigger: number
-  self.bottomLinePosY = 0
+  // self.bottomLinePosY = 0
   const onResize = () => {
     const bw = self.clientWidth,
       bh = self.offsetHeight,
