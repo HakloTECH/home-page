@@ -8,19 +8,14 @@
   height: 80vh;
   padding-block-start: env(safe-area-inset-top);
   z-index: 200;
-  transition: backdrop-filter .3s ease-in-out, background-color .15s ease-out;
+  transition: backdrop-filter .3s ease-in-out, background-color .15s ease-in;
   &.blackback {
     -webkit-backdrop-filter: blur(3px);
     backdrop-filter: blur(3px);
+    background-color: #b4b4b412;
     //background-color: #dddddd12;
     .bottomLines {
       opacity: 0;
-    }
-    @media (hover: hover) {
-      &:hover {
-        background-color: rgba(0, 0, 0, 0.5);
-        transition: background-color .15s ease-in;
-      }
     }
   }
   .descTextField{
