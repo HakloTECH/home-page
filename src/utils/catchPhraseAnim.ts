@@ -1,14 +1,42 @@
 import { ElemType } from "bluejsx";
 import { DESCRIPTION } from "./logoDescriptionTexts";
 const TIME_TYPE_CHAR = 50, TIME_DELETE_CHAR = 30;
-const PHASE = {
-  MOVING: 0,
-  STOP_REQUEST: 1,
-  STOPPED: 2
+enum PHASE {
+  MOVING,
+  STOP_REQUEST,
+  STOPPED
 }
 let descTextIndex = 0, currentPhase = PHASE.STOPPED
+const state: {
+  resolver: (value: unknown) => void,
+  sleepTime: number,
+  sleepStartTime: number,
+  newSleep: boolean
+} = {
+  resolver: () => { },
+  sleepTime: 0,
+  sleepStartTime: 0,
+  newSleep: false
+}
 
-const sleep = (time: number) => new Promise(resolve => setTimeout(resolve, time))
+const mainCallBack = (time: number) => {
+  if (state.newSleep) {
+    state.sleepStartTime = time
+    state.newSleep = false
+  }
+  if (time - state.sleepStartTime >= state.sleepTime) {
+    state.resolver(0)
+  }
+  requestAnimationFrame(mainCallBack)
+}
+requestAnimationFrame(mainCallBack)
+// const sleep = (time: number) => new Promise(resolve => setTimeout(resolve, time))
+
+const sleep = (time: number) => new Promise(resolve => {
+  state.resolver = resolve
+  state.newSleep = true
+  state.sleepTime = time
+})
 
 let textElem: ElemType<'p'>
 export const initText = (elem: ElemType<'p'>) => {

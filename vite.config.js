@@ -5,7 +5,7 @@ export default withBlue({
     hmr: false,
   },
   plugins: [
-    viteTsUrlLoader()
+    // viteTsUrlLoader()
   ],
   base: './',
   assetsInclude: 'public/*'

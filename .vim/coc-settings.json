@@ -1,0 +1,5 @@
+{
+  "deno.enable": false,
+  "tsserver.enable": true,
+  "tsserver.log": "verbose"
+}

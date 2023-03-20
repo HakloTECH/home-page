@@ -4,12 +4,14 @@
   width: 100vw;
   height: 100vh;
   opacity: 0;
+  filter: blur(5px);
   font-size: min(max(1.4em, 4vw), 2em);
-  transition: opacity .2s ease-in-out;
+  transition: opacity .2s ease-in-out, filter .2s ease-in-out;
   pointer-events: none;
   line-height: 1.4em;
   &.visible {
     opacity: 1;
+    filter: blur(0);
     pointer-events: all;
   }
 }
