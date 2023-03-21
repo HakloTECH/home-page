@@ -8,7 +8,7 @@ enum PHASE {
 }
 let descTextIndex = 0, currentPhase = PHASE.STOPPED
 const state: {
-  resolver: (value: unknown) => void,
+  resolver: (value: 0) => void,
   sleepTime: number,
   sleepStartTime: number,
   newSleep: boolean
@@ -32,7 +32,8 @@ const mainCallBack = (time: number) => {
 requestAnimationFrame(mainCallBack)
 // const sleep = (time: number) => new Promise(resolve => setTimeout(resolve, time))
 
-const sleep = (time: number) => new Promise(resolve => {
+// resolving sleep using `requestAnimationFrame` because `setTimeout` did not work on MS Edge
+const sleep = (time: number) => new Promise<0>(resolve => {
   state.resolver = resolve
   state.newSleep = true
   state.sleepTime = time
@@ -46,7 +47,7 @@ export const initText = (elem: ElemType<'p'>) => {
       if (currentPhase === PHASE.STOPPED) {
         currentPhase = PHASE.MOVING
         mainLoop()
-      }else if(currentPhase === PHASE.STOP_REQUEST){
+      } else if (currentPhase === PHASE.STOP_REQUEST){
         currentPhase = PHASE.MOVING
       }
     },
@@ -74,16 +75,19 @@ const typeAndDelete = async (str: string) => {
 }
 
 const mainLoop = async () => {
-  await typeAndDelete(DESCRIPTION[descTextIndex])
-  descTextIndex++
+  while(true){
 
-  if (DESCRIPTION.length <= descTextIndex) {
-    descTextIndex = 0
-  }
-  if (currentPhase === PHASE.STOP_REQUEST) {
-    currentPhase = PHASE.STOPPED
-  } else {
-    await sleep(400)
-    await mainLoop()
+    await typeAndDelete(DESCRIPTION[descTextIndex])
+    descTextIndex++
+  
+    if (DESCRIPTION.length <= descTextIndex) {
+      descTextIndex = 0
+    }
+    if (currentPhase === PHASE.STOP_REQUEST) {
+      currentPhase = PHASE.STOPPED
+      break;
+    } else {
+      await sleep(400)
+    }
   }
 }
